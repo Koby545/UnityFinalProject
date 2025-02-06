@@ -1,15 +1,25 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;          // Speed of the player
-    public float jumpForce = 5f;         // Force applied for jumping
-    public float gravity = -9.81f;       // Gravity value
-    public Transform cameraTransform;    // Reference to the camera
+    public float jumpForce = 5f;          // Force applied for jumping
+    public float gravity = -9.81f;        // Gravity value
+    public Transform cameraTransform;     // Reference to the camera
     public CharacterController controller; // CharacterController component for movement
 
-    private Vector3 velocity;            // Player's current velocity
-    private bool isGrounded;             // Is the player on the ground?
+    private Vector3 velocity;             // Player's current velocity
+    private bool isGrounded;              // Is the player on the ground?
+
+    private float defaultMoveSpeed;       // Store default speed for resetting
+    private float defaultJumpForce;       // Store default jump for resetting
+
+    private void Start()
+    {
+        defaultMoveSpeed = moveSpeed;
+        defaultJumpForce = jumpForce;
+    }
 
     void Update()
     {
@@ -44,5 +54,31 @@ public class PlayerMovement : MonoBehaviour
         // Apply gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime); // Apply vertical movement
+    }
+
+    public void ApplySpeedBoost(float boostAmount, float duration)
+    {
+        StopCoroutine(nameof(ResetSpeed)); // Stop any existing reset coroutine
+        moveSpeed += boostAmount;
+        StartCoroutine(ResetSpeed(duration));
+    }
+
+    public void ApplyJumpBoost(float boostAmount, float duration)
+    {
+        StopCoroutine(nameof(ResetJump)); // Stop any existing reset coroutine
+        jumpForce += boostAmount;
+        StartCoroutine(ResetJump(duration));
+    }
+
+    private IEnumerator ResetSpeed(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        moveSpeed = defaultMoveSpeed;
+    }
+
+    private IEnumerator ResetJump(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        jumpForce = defaultJumpForce;
     }
 }
