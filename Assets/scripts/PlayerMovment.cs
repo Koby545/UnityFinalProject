@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;          // Speed of the player
-    public float jumpForce = 5f;          // Force applied for jumping
-    public float gravity = -9.81f;        // Gravity value
+    private float moveSpeed = 5f;          // Speed of the player
+    private float jumpForce = 5f;          // Force applied for jumping
+    private float gravity = -9.81f;        // Gravity value
     public Transform cameraTransform;     // Reference to the camera
     public CharacterController controller; // CharacterController component for movement
     public GameTimer gameTimer;

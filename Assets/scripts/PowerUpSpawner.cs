@@ -6,11 +6,12 @@ public class PowerUpSpawner : MonoBehaviour
 {
     public GameObject[] powerUpPrefabs;  // Array of power-up prefabs
     public Transform mazeWallsParent;    // Parent object containing all walls
-    public int maxPowerUps = 5;          // Max number of power-ups at once
-    public float spawnInterval = 5f;     // Time between spawns
-    public float powerUpHeight = 0.5f;   // Y position for power-ups
-    public float spawnCheckRadius = 0.5f; // Radius to check if position is valid
 
+
+    private int maxPowerUps = 4;          // Max number of power-ups at once
+    private float spawnInterval = 0f;     // Time between spawns
+    private float powerUpHeight = 2f;   // Y position for power-ups
+    private float spawnCheckRadius = 3f; // Radius to check if position is valid
     private float minX, maxX, minZ, maxZ;
     private LayerMask wallLayer;  // Layer mask to identify walls
 
