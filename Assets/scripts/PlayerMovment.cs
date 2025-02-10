@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;        // Gravity value
     public Transform cameraTransform;     // Reference to the camera
     public CharacterController controller; // CharacterController component for movement
+    public GameTimer gameTimer;
 
     private Vector3 velocity;             // Player's current velocity
     private bool isGrounded;              // Is the player on the ground?
@@ -23,6 +24,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
+        if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && !gameTimer.timerRunning)
+        {
+            gameTimer.StartTimer();  // Start the timer on first movement
+        }
         // Check if the player is on the ground
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
